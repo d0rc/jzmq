@@ -965,6 +965,18 @@ public class ZMQ {
             setLongSockopt(LINGER, linger);
         }
 
+        public void setCurveServer() {
+            if (ZMQ.version_full() < ZMQ.make_version(4, 0, 0))
+                return;
+            setLongSockopt(CURVE_SERVER, 1);
+        }
+
+        public void setCurveServerKey(byte[] secret_key) {
+            if (ZMQ.version_full() < ZMQ.make_version(4, 0, 0))
+                return;
+            setBytesSockopt(CURVE_SECRETKEY, secret_key);
+        }
+
         /**
          * @since 3.0.0
          */
@@ -1808,6 +1820,8 @@ public class ZMQ {
         private static final int PLAIN_SERVER = 44;
         private static final int PLAIN_USERNAME = 45;
         private static final int PLAIN_PASSWORD = 46;
+        private static final int CURVE_SERVER = 47;
+        private static final int CURVE_SECRETKEY = 49;
         private static final int PROBE_ROUTER = 51;
         private static final int REQ_CORRELATE = 52;
         private static final int REQ_RELAXED = 53;
